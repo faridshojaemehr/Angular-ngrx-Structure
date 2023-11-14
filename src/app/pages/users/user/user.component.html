@@ -1,0 +1,29 @@
+<h1>
+  Users <span>({{ total$ | async }})</span>
+</h1>
+
+<div class="row">
+  <div [ngClass]="(selectUser$ | async) ? 'col-8' : 'col-12'">
+    <table
+      class="table table-bordered"
+      *ngIf="user$ | async as Users; else elscond"
+    >
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+      <tr *ngFor="let user of Users">
+        <td>{{ user.id }}</td>
+        <td (click)="selectUser(user)" class="clickable">{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+    </table>
+    <ng-template #elscond> no fetch data ... </ng-template>
+  </div>
+  <div class="col-4" *ngIf="selectUser$ | async">
+    {{ selectUser$ | async | json }}
+    <button class="btn btn-danger" (click)="deSelectUser()">UnSelected</button>
+  </div>
+  <!-- <ng-template #empty> No Selected User ...</ng-template> -->
+</div>
