@@ -13,7 +13,10 @@
         <th>Name</th>
         <th>Email</th>
       </tr>
-      <tr *ngFor="let user of Users">
+      <tr
+        *ngFor="let user of Users"
+        [ngClass]="(selectUser$ | async) == user ? 'text-success' : ''"
+      >
         <td>{{ user.id }}</td>
         <td (click)="selectUser(user)" class="clickable">{{ user.name }}</td>
         <td>{{ user.email }}</td>
