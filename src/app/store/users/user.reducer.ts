@@ -10,12 +10,9 @@ export interface UserState {
 }
 
 const initUserState: UserState = {
-  users: [
-    { id: 1, name: 'farid', email: 'farid@f.com' },
-    { id: 2, name: 'juve', email: 'fs@f.com' },
-  ],
+  users: [],
   selectedUser: null,
-  total: 1,
+  total: null,
 };
 export function usersReducer(
   state: UserState = initUserState,

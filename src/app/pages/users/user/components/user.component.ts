@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { LoadUsers, SelectUser } from '../../../store/users/user.actions';
+import { LoadUsers, SelectUser } from '../../../../store/users/user.actions';
 import { select, Store } from '@ngrx/store';
-import { Appstate } from '../../../store';
+import { Appstate } from '../../../../store';
 import { Observable } from 'rxjs';
-import { IUser } from './model/user.interface';
+import { IUser } from '../model/user.interface';
 import {
   seclectUsers,
   seclectUsersTotal,
   seclectedUser,
-} from '../../../store/users/user.reducer';
+} from '../../../../store/users/user.reducer';
 
 @Component({
   selector: 'app-user',
