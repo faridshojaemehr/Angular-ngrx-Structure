@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +17,7 @@ export class HttpService {
     return this.request('POST', url, params, relative);
   }
 
-  delete<T = any>(url: string, param: T, relative: boolean = true) {
+  delete<T = any>(url: string, param?: T, relative: boolean = true) {
     return this.request('DELETE', url, param, relative);
   }
 
@@ -38,7 +38,13 @@ export class HttpService {
       case 'GET':
         return this._http.get<T>(url);
       case 'DELETE':
-        return this._http.delete<T>(url, params);
+        const option = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+          body: params,
+        };
+        return this._http.delete<T>(url, option);
       case 'PATCH':
         return this._http.patch<T>(url, params);
       default:

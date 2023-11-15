@@ -8,8 +8,8 @@ export interface UserState {
   selectedUser: IUser | null;
   total: number | null;
   recently: {
-    updated: IUser | null;
-    deleted: IUser | null;
+    updated: number | null;
+    deleted: number | null;
   };
 }
 
@@ -39,6 +39,26 @@ export function usersReducer(
         ...state,
         users: action.payload,
         total: action.payload?.length,
+      };
+    case UserActionsType.DeleteUser:
+      return state;
+
+    case UserActionsType.DeleteUserDone:
+      const index: number = state.users.findIndex(
+        (user) => user.id == action.payload
+      );
+
+      return {
+        ...state,
+        users: [
+          ...state.users.slice(0, index),
+          ...state.users.slice(index + 1),
+        ],
+        total: state.total - 1,
+        recently: {
+          ...state.recently,
+          deleted: action.payload,
+        },
       };
     default:
       return state;

@@ -36,6 +36,7 @@ export class DeleteUser implements Action {
 }
 export class DeleteUserDone implements Action {
   readonly type = UserActionsType.DeleteUserDone;
+  constructor(public payload: number) {}
 }
 
 export type UserActions =

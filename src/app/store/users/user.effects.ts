@@ -36,7 +36,7 @@ export class UserEffects {
       switchMap((action: DeleteUser) =>
         this._service.delete(action.payload).pipe(
           map((res) => {
-            return new DeleteUserDone();
+            return new DeleteUserDone(action.payload);
           })
         )
       )

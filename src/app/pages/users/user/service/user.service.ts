@@ -10,6 +10,6 @@ export class UserService {
   }
 
   delete(userId: number) {
-    return this._http.delete('users', { userId });
+    return this._http.delete(`users/${userId}`);
   }
 }
