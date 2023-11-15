@@ -8,4 +8,8 @@ export class UserService {
   load() {
     return this._http.get('users');
   }
+
+  delete(userId: number) {
+    return this._http.delete('users', { userId });
+  }
 }

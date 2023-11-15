@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { LoadUsers, SelectUser } from '../../../../store/users/user.actions';
+import {
+  DeleteUser,
+  LoadUsers,
+  LoadUsersDone,
+  SelectUser,
+} from '../../../../store/users/user.actions';
 import { select, Store } from '@ngrx/store';
 import { Appstate } from '../../../../store';
 import { Observable } from 'rxjs';
@@ -19,6 +24,7 @@ export class UserComponent {
   user$: Observable<IUser[]>;
   total$: Observable<number>;
   selectUser$: Observable<IUser>;
+
   constructor(private _store: Store<Appstate>) {
     this._store.dispatch(new LoadUsers({}));
     this.user$ = this._store.pipe(select(seclectUsers));
@@ -30,7 +36,7 @@ export class UserComponent {
     this._store.dispatch(new SelectUser(user));
   };
 
-  public deSelectUser() {
-    this._store.dispatch(new SelectUser(null));
+  public delete(userId: number) {
+    this._store.dispatch(new DeleteUser(userId));
   }
 }

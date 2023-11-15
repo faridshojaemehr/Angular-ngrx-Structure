@@ -7,12 +7,20 @@ export interface UserState {
   users: IUser[];
   selectedUser: IUser | null;
   total: number | null;
+  recently: {
+    updated: IUser | null;
+    deleted: IUser | null;
+  };
 }
 
 const initUserState: UserState = {
   users: [],
   selectedUser: null,
   total: null,
+  recently: {
+    updated: null,
+    deleted: null,
+  },
 };
 export function usersReducer(
   state: UserState = initUserState,
@@ -25,6 +33,12 @@ export function usersReducer(
       return {
         ...state,
         selectedUser: action.payload,
+      };
+    case UserActionsType.LoadUsersDone:
+      return {
+        ...state,
+        users: action.payload,
+        total: action.payload?.length,
       };
     default:
       return state;

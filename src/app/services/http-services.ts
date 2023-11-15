@@ -17,7 +17,11 @@ export class HttpService {
     return this.request('POST', url, params, relative);
   }
 
-  request<T = any>(
+  delete<T = any>(url: string, param: T, relative: boolean = true) {
+    return this.request('DELETE', url, param, relative);
+  }
+
+  private request<T = any>(
     type: verbs,
     url: string,
     params?: T,

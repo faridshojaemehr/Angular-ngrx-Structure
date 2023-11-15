@@ -7,6 +7,8 @@ export enum UserActionsType {
   LoadUsersDone = '[USERS] load users done',
   LoadUsersFailed = '[USERS] load users error',
   SelectUser = '[USERS] select user',
+  DeleteUser = '[USERS] delete user',
+  DeleteUserDone = '[USERS] delete user done',
 }
 
 export class LoadUsers implements Action {
@@ -28,4 +30,18 @@ export class LoadUsersFailed implements Action {
   constructor(public payload: HttpErrorResponse) {}
 }
 
-export type UserActions = LoadUsers | SelectUser;
+export class DeleteUser implements Action {
+  readonly type = UserActionsType.DeleteUser;
+  constructor(public payload: number) {}
+}
+export class DeleteUserDone implements Action {
+  readonly type = UserActionsType.DeleteUserDone;
+}
+
+export type UserActions =
+  | LoadUsers
+  | SelectUser
+  | LoadUsersDone
+  | LoadUsersFailed
+  | DeleteUser
+  | DeleteUserDone;
