@@ -66,5 +66,6 @@ export class UserComponent {
   public updateUser() {
     const user: IUser = this.userForm.value;
     this._store.dispatch(new UpdateUser(user));
+    this._store.dispatch(new SelectUser(null))
   }
 }
