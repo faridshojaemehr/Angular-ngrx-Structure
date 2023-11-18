@@ -3,13 +3,13 @@
 </h1>
 
 <div class="row">
-  <div class="col-12">
+  <div [ngClass]="(selectUser$ | async) ? 'col-8' : 'col-12'">
     <table class="table" *ngIf="user$ | async as Users; else elscond">
       <thead>
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>position</th>
+          <th>Position</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -19,22 +19,52 @@
           [ngClass]="(selectUser$ | async) == user ? 'text-success' : ''"
         >
           <td>{{ user.id }}</td>
-          <td (click)="selectUser(user)" class="clickable">{{ user.name }}</td>
+          <td class="clickable">{{ user.name }}</td>
           <td>{{ user.position }}</td>
           <td class="d-flex jusify-content-center gap-2">
             <button class="btn btn-sm btn-danger" (click)="delete(user.id)">
               Delete
             </button>
-            <button class="btn btn-sm btn-warning">update</button>
+            <button class="btn btn-sm btn-warning" (click)="editUser(user)">
+              Edit
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
     <ng-template #elscond> no fetch data ... </ng-template>
   </div>
-  <!-- <div class="col-4" *ngIf="selectUser$ | async">
-    {{ selectUser$ | async | json }}
-    <button class="btn btn-danger" (click)="deSelectUser()">UnSelected</button>
-  </div> -->
-  <!-- <ng-template #empty> No Selected User ...</ng-template> -->
+  <ng-container *ngIf="selectUser$ | async as user">
+    <div class="col-4">
+      <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+        <div class="form-group">
+          <label>Name</label>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Enter Name"
+            formControlName="name"
+          />
+        </div>
+        <div class="form-group">
+          <label>Position</label>
+          <input
+            type="email"
+            class="form-control"
+            placeholder="Enter Position"
+            formControlName="position"
+          />
+        </div>
+
+        <div
+          style="display: flex; justify-content: space-between; padding: 4px"
+        >
+          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+          <button class="btn btn-sm btn-danger" (click)="deSeleteUser()">
+            Close
+          </button>
+        </div>
+      </form>
+    </div></ng-container
+  >
 </div>

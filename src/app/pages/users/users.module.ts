@@ -6,6 +6,7 @@ import { UserComponent } from './user/components/user.component';
 import { UserService } from './user/service/user.service';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEffects } from 'src/app/store/users/user.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [UserComponent],
@@ -13,6 +14,7 @@ import { UserEffects } from 'src/app/store/users/user.effects';
     CommonModule,
     UsersRoutingModule,
     EffectsModule.forFeature([UserEffects]),
+    ReactiveFormsModule,
   ],
   providers: [UserService],
 })

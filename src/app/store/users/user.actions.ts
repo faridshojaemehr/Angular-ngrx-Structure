@@ -5,10 +5,12 @@ import { IUser } from 'src/app/pages/users/user/model/user.interface';
 export enum UserActionsType {
   LoadUsers = '[USERS] load users trigger',
   LoadUsersDone = '[USERS] load users done',
-  LoadUsersFailed = '[USERS] load users error',
+  LoadUsersFailed = '[USERS] load users failed',
   SelectUser = '[USERS] select user',
   DeleteUser = '[USERS] delete user',
   DeleteUserDone = '[USERS] delete user done',
+  UpdateUser = '[USERS] update user trigger',
+  UpdateUserDone = '[USERS] update user done',
 }
 
 export class LoadUsers implements Action {
@@ -39,10 +41,21 @@ export class DeleteUserDone implements Action {
   constructor(public payload: number) {}
 }
 
+export class UpdateUser implements Action {
+  readonly type = UserActionsType.UpdateUser;
+  constructor(public payload: IUser) {}
+}
+export class UpdateUserDone implements Action {
+  readonly type = UserActionsType.UpdateUserDone;
+  constructor(public payload:IUser) {}
+}
+
 export type UserActions =
   | LoadUsers
   | SelectUser
   | LoadUsersDone
   | LoadUsersFailed
   | DeleteUser
-  | DeleteUserDone;
+  | DeleteUserDone
+  | UpdateUser
+  | UpdateUserDone;

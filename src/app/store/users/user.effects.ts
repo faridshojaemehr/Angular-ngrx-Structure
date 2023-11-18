@@ -5,7 +5,7 @@ import {
   DeleteUser,
   DeleteUserDone,
   LoadUsers,
-  LoadUsersDone,
+  LoadUsersDone, UpdateUser, UpdateUserDone,
   UserActionsType,
 } from './user.actions';
 import { map, switchMap } from 'rxjs';
@@ -37,6 +37,20 @@ export class UserEffects {
         this._service.delete(action.payload).pipe(
           map((res) => {
             return new DeleteUserDone(action.payload);
+          })
+        )
+      )
+    )
+  );
+
+
+  onUpdate$= createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActionsType.UpdateUser),
+      switchMap((action: UpdateUser) =>
+        this._service.update(action.payload).pipe(
+          map((res:IUser) => {
+            return new UpdateUserDone(action.payload);
           })
         )
       )

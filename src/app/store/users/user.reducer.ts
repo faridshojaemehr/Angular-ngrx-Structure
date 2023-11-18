@@ -22,6 +22,7 @@ const initUserState: UserState = {
     deleted: null,
   },
 };
+
 export function usersReducer(
   state: UserState = initUserState,
   action: UserActions
@@ -59,6 +60,20 @@ export function usersReducer(
           ...state.recently,
           deleted: action.payload,
         },
+      };
+    case UserActionsType.UpdateUser:
+      return state;
+
+    case UserActionsType.UpdateUserDone:
+      const updateIndex = state.users.findIndex(user =>user.id== action.payload.id )
+      return {
+        ...state,
+        users: [
+          ...state.users.slice(0, updateIndex),
+          action.payload,
+          ...state.users.slice(updateIndex + 1),
+        ],
+
       };
     default:
       return state;
